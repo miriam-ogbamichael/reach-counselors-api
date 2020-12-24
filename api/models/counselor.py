@@ -15,7 +15,7 @@ class Counselor(models.Model):
 
   def __str__(self):
     # This must return a string
-    return f"The counselor named '{self.name}' is located in {self.location}."
+    return f"The counselor named '{self.name}'."
     # It is {self.ripe} that it is ripe."
 
   def as_dict(self):
