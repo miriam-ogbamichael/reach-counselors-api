@@ -1,14 +1,14 @@
 #!/bin/bash
 
-curl "http://localhost:8000/mangos/${ID}" \
+curl "http://localhost:8000/counselors/${ID}" \
   --include \
   --request PATCH \
   --header "Content-Type: application/json" \
   --header "Authorization: Token ${TOKEN}" \
   --data '{
-    "mango": {
+    "counselor": {
       "name": "'"${NAME}"'",
-      "color": "'"${COLOR}"'",
+      "location": "'"${COLOR}"'",
       "ripe": "'"${RIPE}"'"
     }
   }'
