@@ -4,7 +4,7 @@
 
 This template contains a project, `reach-out-api`, and an app, `api`,
 which are set up complete with user authentication and an example resource,
-`Mango`, which has an example user ownership implementation.
+`Counselor`, which has an example user ownership implementation.
 
 ## Preparation
 
