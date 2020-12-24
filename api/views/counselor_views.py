@@ -17,9 +17,9 @@ class Counselors(generics.ListCreateAPIView):
     def get(self, request):
         """Index request"""
         # Get all the counselors:
-        # counselors = Counselor.objects.all()
+        counselors = Counselor.objects.all()
         # Filter the counselors by owner, so you can only see your owned counselors
-        counselors = Counselor.objects.filter(owner=request.user.id)
+        # counselors = Counselor.objects.filter(owner=request.user.id)
         # Run the data through the serializer
         data = CounselorSerializer(counselors, many=True).data
         return Response({ 'counselors': data })
