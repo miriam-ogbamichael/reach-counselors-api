@@ -1,187 +1,72 @@
-[![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)
+# Reach Out: A mental health counselor tracker app
 
-# Django Auth Template
+This is the API repository for Reach Out. User's can view and add mental health counselors in order to keep track of them.
 
-This template contains a project, `reach-out-api`, and an app, `api`,
-which are set up complete with user authentication and an example resource,
-`Counselor`, which has an example user ownership implementation.
+### Important Links
 
-## Preparation
+- [Client Repo](https://github.com/miriam-ogbamichael/reach-out-client)
+- [Deployed Client](https://miriam-ogbamichael.github.io/reach-out-client/#/)
+- [Deployed API](https://git.heroku.com/reach-counselors-api.git)
 
-1. [Download](../../archive/master.zip) this template.
-1. Move the .zip file to your `sei/projects/` directory and Unzip it (creating a
-   folder) -- **NOTE:** if the folder was already unzipped, use the `mv` command
-   line to move it to the `sei/projects/` directory.
-1. Empty [`README.md`](README.md) and fill with your own content.
-1. Move into the new project and `git init`.
-1. Create and checkout to a new branch, `training`, for your work.
-1. Create a `.env` file
-1. Add a key `ENV` with the value `development` **exactly**.
-    1. Note: When you deploy, you will create this key on Heroku the value `production`. This will distinguish the development and production settings set in this template.
-1. Run `pipenv shell` to start up your virtual environment.
-1. Run `pipenv install` to install dependencies.
-2. Create a psql database for your project
-    1. Edit `settings.sql` then run `psql -U postgres -f settings.sql`
-    OR:
-    1. Type `psql` to get into interactive shell.
-    2. Run `CREATE DATABASE "project_db_name";` where `project_db_name` is the name you want for your database.
-1. Add the database name to the `.env` file using the key `DB_NAME_DEV`.
-1. Replace all instances of `reach-out-api` with your application name. **This includes the folder included in this repository.**
-2. Generate a secret key using [this tool](https://djecrety.ir) and add it to the `.env` file using the key `SECRET`.
-1. Open the repository in Atom with `atom .`
+### Planning Story
 
-### The `.env` File
+I began by brainstorming an idea to combine mental health and tech. Reach Out is an application that users can use to keep track of mental health counselors that they come accross that they would like to stock pile as their own personal database. Reach Out allows users to `CRUD` onto `counselors`. The first steps to accomplishing version one (V1) of Reach Out was to make an ERD and a wireframe. Afterwards, I connected the Django API back-end with the React Auth front-end and began coding in the `CRUD` routes and end-points for the `counselors`. By testing each `CRUD` command and using `console.log()` every step of the way, I verified the applications functionality. It has a long way to go before it is completed but this is the MVP of Reach Out's V1.
 
-After following the steps above, your `.env` file should look _something_ like
-the following, replacing `project_db_name` with your database name and
-`secret_key` with your secret key.
+### User Stories
 
-```sh
-ENV=development
-DB_NAME_DEV=project_db_name
-SECRET=secret_key
-```
+- As an unregistered user, I would like to sign up with email and password.
+- As a registered user, I would like to sign in with email and password.
+- As a signed in user, I would like to change password.
+- As a signed in user, I would like to sign out.
+- As a signed in user, I would like to see all of the listed counselors.
+- As a signed in user, I would like to create a counselor.
+- As a signed in user, I would like to update a counselor I have created.
+- As a signed in user, I would like to delete a counselor I have created.
 
-## Structure
+### Technologies Used
 
-This template includes a project `reach-out-api` which should be renamed
-as part of the set-up steps. It includes the `settings.py` file with special
-settings to be able to run both locally and on production. **DO NOT ADD A NEW
-OR MODIFY THE CURRENT `DATABASES` DEFINITION UNLESS INSTRUCTED TO DO SO.**
+- Python
+- Django
+- HTML/CSS
+- Javascript
 
-There is also an app `api` which can be renamed if necessary. The `api` app
-includes folders for models and view files, which can then be imported into
-`urls.py` for use.
+### Unsolved Problems
 
-## Commands
+- Allowing signed in users to `view` counselors they have created
+- Implement `Favorite` functionality
+- Implement `Contacted` functionality to track `Contacted` counselors
+- Adding `Img` of counselors to display when users `CRUD` on counselors
 
-Commands are run with the syntax `python3 manage.py <command>`:
 
-| command | action |
-|---------|--------|
-| `runserver`  |  Run the server |
-| `makemigrations`  | Generate migration files based on changes to models  |
-| `migrate`  | Run migration files to migrate changes to db  |
-| `startapp`  | Create a new app  |
+### API Routes
 
-## Deployment
+## Counselor Routes
 
-Before deploying, make sure you have renamed your project folder and replaced
-all instances of `reach-out-api` with your app's name.
+| Verb   | URI Pattern              | Controller#Action    |
+|:-------|:----------------         |:------------------   |
+| GET    | `/counselors/`             | `counselors#index`     |
+| POST   | `/counselors/`             | `counselors#create`    |
+| GET    | `/counselors/:sessionId`   | `counselors#show`      |
+| PATCH  | `/counselors/:sessionId`   | `counselors#update`    |
+| DELETE | `/counselors/:sessionId`   | `counselors#delete`    |
 
-Once ready, you can follow the steps in the [django-heroku-deployment-guide](https://git.generalassemb.ly/ga-wdi-boston/django-heroku-deployment-guide).
 
-## Connecting Client
 
-This template is intentionally minimal, and does not override many of Django's
-defaults. This means connecting either the `browser-template` or `react-auth-template` clients to this backend involves updating that client code slightly.
+## Auth Routes
 
-Ultimately, Django and any other backend API framework should be able to build
-standalone backend APIs that can talk to any client. We just have to make sure
-the client is following some of the expectations that Django has by default.
+| Verb   | URI Pattern        | Controller#Action          |
+|:-------|:----------------   |:------------------         |
+| POST   | `/sign-up`         | `users#sign-up`            |
+| POST   | `/sign-in`         | `users#sign-in`            |
+| DELETE | `/sign-out`        | `users#sign-out`           |
+| PATCH  | `/change-pw`       | `users#change-password`    |
 
-### Port
 
-When working on our "local" computer, we work on the `localhost` location. This
-is paired with a port number to identify where our server is running on our
-local machine. Our client templates use port `7165`, for example, and run at
-`http://localhost:7165`.
 
-These templates also talk to a backend at a certain port, which is set to `4147`
-in the client templates. **We need to change the port in the URL the client
-application uses when running locally.**
+### ERD and Wireframs
 
-In the `browser-template` this means modifying the `config.js` file, and in the
-`react-auth-template` the `apiConfig.js` file.
+- Reach Out ERD:
+(https://docs.google.com/document/d/1hs9TZIhWu1fxZ5eOaOgoginVn3-xQQzq-DCaqP-EkFg/edit?usp=sharing)
 
-This django template uses the port `8000` by default, so any client speaking to
-this template's default server location would be `http://localhost:8000`.
-
-### URL Syntax
-
-Django defaults to expecting (and requiring) trailing forward slashes `/` on
-requests. You'll need to make sure any requests you make from a client to this
-template look something like `http://localhost:8000/books/`.
-
-### Token Syntax
-
-We've gotten used to the token syntax that the Express framework expects:
-
-```
-Bearer 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b
-```
-
-However, the DRF [`TokenAuthentication`](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication) class in this template is what defines
-what our token syntax should look like when the client make an authenticated
-request to our Django application.
-
-When making authenticated requests from any client, make sure your tokens
-follow this pattern:
-
-```
-Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b
-```
-
-### Incoming Request Data
-
-Our JavaScript conventions are to use `camelCase` when defining almost everything, however Python conventions (and therefore Django conventions) use
-`snake_case` instead. We have to keep this in mind when sending data from a
-client to a Django application. 
-
-## Debugging
-
-`pipenv shell` moved me into a different directory!
-
-> Pipenv wants to be in the root directory, so if it thinks it's not then it
-> will move you to what it thinks is the root of your repository. Exit out
-> of the shell with `exit`, then check if the folder it moved you to is a git
-> repository. If you see a `.git` folder inside of the `trainings` folder,
-> for example, delete that folder so that `trainings` is no longer a "git repo."
-> Then, you can change back into your project directory and try running
-> `pipenv shell` again.
-
-`pipenv shell` is complaining about my python version not matching
-
-> Our python version is defined in the `Pipfile`. Simply replace the current
-> `python_version = "x.x"` statement with the appropriate version.
-
-SyntaxError pointing to `manage.py` when trying to run the server, migrate, etc.
-
-> Double-check your python version with `python --version`. If you see a "2.x.x"
-> version, then you need to use the command `python3` when running python
-> scripts. You can also follow these guides to replace your `python` command so
-> it always uses python3.
->
-> Mac: https://stackoverflow.com/questions/49704364/make-python3-as-my-default-python-on-mac/49711594
->
-> Linux: https://linuxconfig.org/how-to-change-from-default-to-alternative-python-version-on-debian-linux
-
-Error: No module named <my-projects-name> when trying to run the server
-
-> If Python can't find the module that is your project name, then very likely
-> you forgot a very important piece of the preparation steps. You need to
-> make sure you rename the project folder as well.
-
-I made changes to my models & ran my migrations but it says "No migrations to apply"
-
-> Double-check that you **generated** the migration files before you tried
-> to run them. This means running `makemigrations` before `migrate`.
-
-Errors with `psycopg2`
-
-> There's a lot to read about this issue if you want:
-> https://github.com/psycopg/psycopg2/issues/674
-> https://www.psycopg.org/articles/2018/02/08/psycopg-274-released/
->
-> This template uses `psycopg2-binary` to minimize errors during project
-> development. If you have errors with `psycopg2` anyway, notify an instructor.
-
-## Additional Resources
-
-- [Django Rest Framework Tutorial: Authentication](https://www.django-rest-framework.org/api-guide/authentication)
-
-## [License](LICENSE)
-
-1.  All content is licensed under a CC­BY­NC­SA 4.0 license.
-1.  All software code is licensed under GNU GPLv3. For commercial use or
-    alternative licensing, please contact legal@ga.co.
+- Reach Out Wireframs:
+(https://docs.google.com/document/d/1JG2E0nUtYsjZ-Wb7NCXP2lNDMb4-5iFc4i8pJjHX3-4/edit?usp=sharing)
